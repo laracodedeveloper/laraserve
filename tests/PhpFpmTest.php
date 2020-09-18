@@ -1,12 +1,12 @@
 <?php
 
-use Valet\Brew;
-use Valet\PhpFpm;
-use Valet\Filesystem;
-use Valet\CommandLine;
-use function Valet\user;
-use function Valet\swap;
-use function Valet\resolve;
+use Laraserve\Brew;
+use Laraserve\PhpFpm;
+use Laraserve\Filesystem;
+use Laraserve\CommandLine;
+use function Laraserve\user;
+use function Laraserve\swap;
+use function Laraserve\resolve;
 use Illuminate\Container\Container;
 
 class PhpFpmTest extends PHPUnit_Framework_TestCase
@@ -37,7 +37,7 @@ class PhpFpmTest extends PHPUnit_Framework_TestCase
         $contents = file_get_contents(__DIR__.'/output/fpm.conf');
         $this->assertContains(sprintf("\nuser = %s", user()), $contents);
         $this->assertContains("\ngroup = staff", $contents);
-        $this->assertContains("\nlisten = ".VALET_HOME_PATH."/valet.sock", $contents);
+        $this->assertContains("\nlisten = ".LARASERVE_HOME_PATH."/laraserve.sock", $contents);
     }
 
     public function test_stopRunning_will_pass_filtered_result_of_getRunningServices_to_stopService()

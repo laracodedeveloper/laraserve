@@ -1,12 +1,12 @@
 <?php
 
-use Valet\Site;
-use Valet\Nginx;
-use Valet\Filesystem;
-use Valet\Configuration;
-use function Valet\user;
-use function Valet\resolve;
-use function Valet\swap;
+use Laraserve\Site;
+use Laraserve\Nginx;
+use Laraserve\Filesystem;
+use Laraserve\Configuration;
+use function Laraserve\user;
+use function Laraserve\resolve;
+use function Laraserve\swap;
 use Illuminate\Container\Container;
 
 class NginxTest extends PHPUnit_Framework_TestCase
@@ -31,7 +31,7 @@ class NginxTest extends PHPUnit_Framework_TestCase
 
         $files->shouldReceive('putAsUser')->andReturnUsing(function ($path, $contents) {
             $this->assertSame('/usr/local/etc/nginx/nginx.conf', $path);
-            $this->assertContains('include "'.VALET_HOME_PATH.'/Nginx/*"', $contents);
+            $this->assertContains('include "'.LARASERVE_HOME_PATH.'/Nginx/*"', $contents);
         })->once();
 
         swap(Filesystem::class, $files);
@@ -44,9 +44,9 @@ class NginxTest extends PHPUnit_Framework_TestCase
     public function test_install_nginx_directories_creates_location_for_site_specific_configuration()
     {
         $files = Mockery::mock(Filesystem::class);
-        $files->shouldReceive('isDir')->with(VALET_HOME_PATH.'/Nginx')->andReturn(false);
-        $files->shouldReceive('mkdirAsUser')->with(VALET_HOME_PATH.'/Nginx')->once();
-        $files->shouldReceive('putAsUser')->with(VALET_HOME_PATH.'/Nginx/.keep', "\n")->once();
+        $files->shouldReceive('isDir')->with(LARASERVE_HOME_PATH.'/Nginx')->andReturn(false);
+        $files->shouldReceive('mkdirAsUser')->with(LARASERVE_HOME_PATH.'/Nginx')->once();
+        $files->shouldReceive('putAsUser')->with(LARASERVE_HOME_PATH.'/Nginx/.keep', "\n")->once();
 
         swap(Filesystem::class, $files);
         swap(Configuration::class, $config = Mockery::spy(Configuration::class, ['read' => ['tld' => 'test']]));
@@ -60,9 +60,9 @@ class NginxTest extends PHPUnit_Framework_TestCase
     public function test_nginx_directory_is_never_created_if_it_already_exists()
     {
         $files = Mockery::mock(Filesystem::class);
-        $files->shouldReceive('isDir')->with(VALET_HOME_PATH.'/Nginx')->andReturn(true);
+        $files->shouldReceive('isDir')->with(LARASERVE_HOME_PATH.'/Nginx')->andReturn(true);
         $files->shouldReceive('mkdirAsUser')->never();
-        $files->shouldReceive('putAsUser')->with(VALET_HOME_PATH.'/Nginx/.keep', "\n")->once();
+        $files->shouldReceive('putAsUser')->with(LARASERVE_HOME_PATH.'/Nginx/.keep', "\n")->once();
 
         swap(Filesystem::class, $files);
         swap(Configuration::class, $config = Mockery::spy(Configuration::class, ['read' => ['tld' => 'test']]));
@@ -76,9 +76,9 @@ class NginxTest extends PHPUnit_Framework_TestCase
     public function test_install_nginx_directories_rewrites_secure_nginx_files()
     {
         $files = Mockery::mock(Filesystem::class);
-        $files->shouldReceive('isDir')->with(VALET_HOME_PATH.'/Nginx')->andReturn(false);
-        $files->shouldReceive('mkdirAsUser')->with(VALET_HOME_PATH.'/Nginx')->once();
-        $files->shouldReceive('putAsUser')->with(VALET_HOME_PATH.'/Nginx/.keep', "\n")->once();
+        $files->shouldReceive('isDir')->with(LARASERVE_HOME_PATH.'/Nginx')->andReturn(false);
+        $files->shouldReceive('mkdirAsUser')->with(LARASERVE_HOME_PATH.'/Nginx')->once();
+        $files->shouldReceive('putAsUser')->with(LARASERVE_HOME_PATH.'/Nginx/.keep', "\n")->once();
 
         swap(Filesystem::class, $files);
         swap(Configuration::class, $config = Mockery::spy(Configuration::class, ['read' => ['tld' => 'test']]));

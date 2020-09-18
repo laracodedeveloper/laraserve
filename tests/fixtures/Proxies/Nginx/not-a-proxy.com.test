@@ -1,4 +1,4 @@
-# valet stub: proxy.valet.conf
+# laraserve stub: proxy.laraserve.conf
 
 server {
     listen 127.0.0.1:80;
@@ -20,16 +20,16 @@ server {
         try_files $uri $uri/;
     }
 
-    ssl_certificate "/home/nobody/.config/valet/Certificates/not-a-proxy.com.test.crt";
-    ssl_certificate_key "/home/nobody/.config/valet/Certificates/not-a-proxy.com.test.key";
+    ssl_certificate "/home/nobody/.config/laraserve/Certificates/not-a-proxy.com.test.crt";
+    ssl_certificate_key "/home/nobody/.config/laraserve/Certificates/not-a-proxy.com.test.key";
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location = /robots.txt  { access_log off; log_not_found off; }
 
     access_log off;
-    error_log "/home/nobody/.config/valet/Log/not-a-proxy.com.test-error.log";
+    error_log "/home/nobody/.config/laraserve/Log/not-a-proxy.com.test-error.log";
 
-    error_page 404 "/home/nobody/.composer/vendor/laravel/valet/server.php";
+    error_page 404 "/home/nobody/.composer/vendor/laravel/laraserve/server.php";
 
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
@@ -67,9 +67,9 @@ server {
     location = /robots.txt  { access_log off; log_not_found off; }
 
     access_log off;
-    error_log "/home/nobody/.config/valet/Log/not-a-proxy.com.test-error.log";
+    error_log "/home/nobody/.config/laraserve/Log/not-a-proxy.com.test-error.log";
 
-    error_page 404 "/home/nobody/.composer/vendor/laravel/valet/server.php";
+    error_page 404 "/home/nobody/.composer/vendor/laravel/laraserve/server.php";
 
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;

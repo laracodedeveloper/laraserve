@@ -1,11 +1,11 @@
 <?php
 
-use Valet\Brew;
-use Valet\Filesystem;
-use Valet\CommandLine;
-use function Valet\user;
-use function Valet\resolve;
-use function Valet\swap;
+use Laraserve\Brew;
+use Laraserve\Filesystem;
+use Laraserve\CommandLine;
+use function Laraserve\user;
+use function Laraserve\resolve;
+use function Laraserve\swap;
 use Illuminate\Support\Collection;
 use Illuminate\Container\Container;
 

@@ -26,5 +26,5 @@ NOTE: If your issue is a feature request, please feel to delete this template an
 <!-- This is not required, but if you have a suggestion for the fix, we're open -->
 
 ## Diagnosis
-<!-- Please upgrade to Valet 2.10 or greater, then run "valet diagnose", and then
+<!-- Please upgrade to Laraserve 1.0, then run "laraserve diagnose", and then
      paste the output here. -->

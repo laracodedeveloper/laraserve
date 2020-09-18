@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Define the user's "~/.config/valet" path.
+ * Define the user's "~/.config/laraserve" path.
  */
 
 define('LARASERVE_HOME_PATH', posix_getpwuid(fileowner(__FILE__))['dir'].'/.config/laraserve');
 define('LARASERVE_STATIC_PREFIX', '41c270e4-5535-4daa-b23e-c269744c2f45');
 
 /**
- * Show the Valet 404 "Not Found" page.
+ * Show the Laraserve 404 "Not Found" page.
  */
 function show_laraserve_404()
 {
@@ -20,10 +20,10 @@ function show_laraserve_404()
 /**
  * Show directory listing or 404 if directory doesn't exist.
  */
-function show_directory_listing($valetSitePath, $uri)
+function show_directory_listing($laraserveSitePath, $uri)
 {
     $is_root = ($uri == '/');
-    $directory = ($is_root) ? $valetSitePath : $valetSitePath.$uri;
+    $directory = ($is_root) ? $laraserveSitePath : $laraserveSitePath.$uri;
 
     if (!file_exists($directory)) {
         show_laraserve_404();
@@ -137,7 +137,7 @@ $laraserveDriver = null;
 
 require __DIR__.'/cli/drivers/require.php';
 
-$laraserveDriver = ValetDriver::assign($laraserveSitePath, $siteName, $uri);
+$laraserveDriver = LaraserveDriver::assign($laraserveSitePath, $siteName, $uri);
 
 if (! $laraserveDriver) {
     show_laraserve_404();

@@ -1,12 +1,12 @@
 <?php
 
-use Valet\CommandLine;
-use Valet\Site;
-use Valet\Filesystem;
-use Valet\Configuration;
-use function Valet\user;
-use function Valet\resolve;
-use function Valet\swap;
+use Laraserve\CommandLine;
+use Laraserve\Site;
+use Laraserve\Filesystem;
+use Laraserve\Configuration;
+use function Laraserve\user;
+use function Laraserve\resolve;
+use function Laraserve\swap;
 use Illuminate\Container\Container;
 
 class SiteTest extends PHPUnit_Framework_TestCase
@@ -34,11 +34,11 @@ class SiteTest extends PHPUnit_Framework_TestCase
         $files = Mockery::mock(Filesystem::class);
         $files->shouldReceive('scandir')
             ->once()
-            ->with($certPath = '/Users/testuser/.config/valet/Certificates')
+            ->with($certPath = '/Users/testuser/.config/laraserve/Certificates')
             ->andReturn(['helloworld.multi.segment.tld.com.crt']);
         $files->shouldReceive('ensureDirExists')
             ->once()
-            ->with('/Users/testuser/.config/valet/Certificates', user());
+            ->with('/Users/testuser/.config/laraserve/Certificates', user());
         $config = Mockery::mock(Configuration::class);
         $config->shouldReceive('read')
             ->once()
@@ -236,16 +236,16 @@ class SiteTest extends PHPUnit_Framework_TestCase
     public function test_symlink_creates_symlink_to_given_path()
     {
         $files = Mockery::mock(Filesystem::class);
-        $files->shouldReceive('ensureDirExists')->once()->with(VALET_HOME_PATH.'/Sites', user());
+        $files->shouldReceive('ensureDirExists')->once()->with(LARASERVE_HOME_PATH.'/Sites', user());
         $config = Mockery::mock(Configuration::class);
-        $config->shouldReceive('prependPath')->once()->with(VALET_HOME_PATH.'/Sites');
-        $files->shouldReceive('symlinkAsUser')->once()->with('target', VALET_HOME_PATH.'/Sites/link');
+        $config->shouldReceive('prependPath')->once()->with(LARASERVE_HOME_PATH.'/Sites');
+        $files->shouldReceive('symlinkAsUser')->once()->with('target', LARASERVE_HOME_PATH.'/Sites/link');
 
         swap(Filesystem::class, $files);
         swap(Configuration::class, $config);
 
         $linkPath = resolve(Site::class)->link('target', 'link');
-        $this->assertSame(VALET_HOME_PATH.'/Sites/link', $linkPath);
+        $this->assertSame(LARASERVE_HOME_PATH.'/Sites/link', $linkPath);
     }
 
 
@@ -529,16 +529,16 @@ class CommandLineFake extends CommandLine
 
 class FixturesSiteFake extends Site
 {
-    private $valetHomePath;
+    private $araserveHomePath;
     private $crtCounter = 0;
 
-    public function valetHomePath()
+    public function laraserveHomePath()
     {
-        if (! isset($this->valetHomePath)) {
+        if (! isset($this->laraserveHomePath)) {
             throw new \RuntimeException(static::class.' needs to be configured using useFixtures or useOutput');
         }
 
-        return $this->valetHomePath;
+        return $this->laraserveHomePath;
     }
 
     /**
@@ -547,7 +547,7 @@ class FixturesSiteFake extends Site
      */
     public function useFixture($fixtureName)
     {
-        $this->valetHomePath = __DIR__.'/fixtures/'.$fixtureName;
+        $this->laraserveHomePath = __DIR__.'/fixtures/'.$fixtureName;
     }
 
     /**
@@ -556,7 +556,7 @@ class FixturesSiteFake extends Site
      */
     public function useOutput()
     {
-        $this->valetHomePath = __DIR__.'/output';
+        $this->laraserveHomePath = __DIR__.'/output';
     }
 
     public function createCa()

@@ -11,7 +11,7 @@ class Facade
      */
     public static function containerKey()
     {
-        return 'Valet\\'.basename(str_replace('\\', '/', get_called_class()));
+        return 'Laraserve\\'.basename(str_replace('\\', '/', get_called_class()));
     }
 
     /**
@@ -39,4 +39,4 @@ class Filesystem extends Facade {}
 class Ngrok extends Facade {}
 class PhpFpm extends Facade {}
 class Site extends Facade {}
-class Valet extends Facade {}
+class Laraserve extends Facade {}

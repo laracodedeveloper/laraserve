@@ -1,12 +1,12 @@
 <?php
 
-use Valet\Brew;
-use Valet\Valet;
-use Valet\Filesystem;
-use Valet\Configuration;
-use function Valet\user;
-use function Valet\resolve;
-use function Valet\swap;
+use Laraserve\Brew;
+use Laraserve\Laraserve;
+use Laraserve\Filesystem;
+use Laraserve\Configuration;
+use function Laraserve\user;
+use function Laraserve\resolve;
+use function Laraserve\swap;
 use Illuminate\Container\Container;
 
 class ConfigurationTest extends PHPUnit_Framework_TestCase
@@ -28,8 +28,8 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
     public function test_configuration_directory_is_created_if_it_doesnt_exist()
     {
         $files = Mockery::mock(Filesystem::class.'[ensureDirExists,isDir]');
-        $files->shouldReceive('ensureDirExists')->once()->with(preg_replace('~/valet$~', '', VALET_HOME_PATH), user());
-        $files->shouldReceive('ensureDirExists')->once()->with(VALET_HOME_PATH, user());
+        $files->shouldReceive('ensureDirExists')->once()->with(preg_replace('~/laraserve$~', '', LARASERVE_HOME_PATH), user());
+        $files->shouldReceive('ensureDirExists')->once()->with(LARASERVE_HOME_PATH, user());
         $files->shouldReceive('isDir')->once();
         swap(Filesystem::class, $files);
         resolve(Configuration::class)->createConfigurationDirectory();
@@ -39,8 +39,8 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
     public function test_drivers_directory_is_created_with_sample_driver_if_it_doesnt_exist()
     {
         $files = Mockery::mock(Filesystem::class.'[isDir,mkdirAsUser,putAsUser]');
-        $files->shouldReceive('isDir')->with(VALET_HOME_PATH.'/Drivers')->andReturn(false);
-        $files->shouldReceive('mkdirAsUser')->with(VALET_HOME_PATH.'/Drivers');
+        $files->shouldReceive('isDir')->with(LARASERVE_HOME_PATH.'/Drivers')->andReturn(false);
+        $files->shouldReceive('mkdirAsUser')->with(LARASERVE_HOME_PATH.'/Drivers');
         $files->shouldReceive('putAsUser');
         swap(Filesystem::class, $files);
         resolve(Configuration::class)->createDriversDirectory();
@@ -49,7 +49,7 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
     public function test_log_directory_is_created_with_log_files_if_it_doesnt_exist()
     {
         $files = Mockery::mock(Filesystem::class.'[ensureDirExists,touch]');
-        $files->shouldReceive('ensureDirExists')->with(VALET_HOME_PATH.'/Log', user());
+        $files->shouldReceive('ensureDirExists')->with(LARASERVE_HOME_PATH.'/Log', user());
         $files->shouldReceive('touch')->once();
         swap(Filesystem::class, $files);
         resolve(Configuration::class)->createLogDirectory();
@@ -94,7 +94,7 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
     {
         $files = Mockery::mock(Filesystem::class.'[exists,isDir]');
         swap(Filesystem::class, $files);
-        $files->shouldReceive('exists')->with(VALET_HOME_PATH.'/config.json')->andReturn(true);
+        $files->shouldReceive('exists')->with(LARASERVE_HOME_PATH.'/config.json')->andReturn(true);
         $files->shouldReceive('isDir')->with('path-1')->andReturn(true);
         $files->shouldReceive('isDir')->with('path-2')->andReturn(false);
         $config = Mockery::mock(Configuration::class.'[read,write]', [$files]);
@@ -112,7 +112,7 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
     {
         $files = Mockery::mock(Filesystem::class.'[exists]');
         swap(Filesystem::class, $files);
-        $files->shouldReceive('exists')->with(VALET_HOME_PATH.'/config.json')->andReturn(false);
+        $files->shouldReceive('exists')->with(LARASERVE_HOME_PATH.'/config.json')->andReturn(false);
         $config = Mockery::mock(Configuration::class.'[read,write]', [$files]);
         $config->shouldReceive('read')->never();
         $config->shouldReceive('write')->never();
@@ -136,6 +136,6 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
         $files->shouldReceive('put')->twice();
         swap(Filesystem::class, $files);
         resolve(Brew::class)->createSudoersEntry();
-        resolve(Valet::class)->createSudoersEntry();
+        resolve(Laraserve::class)->createSudoersEntry();
     }
 }
