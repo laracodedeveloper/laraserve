@@ -373,7 +373,7 @@ Run <info>composer global update</info> to update your globally-installed Compos
 NOTE: Composer may have other dependencies for other global apps you have installed, and those may not be compatible with your default PHP.
 Thus, you may need to delete things from your <info>~/.composer/composer.json</info> file before running <info>composer global update</info> successfully.
 Then to finish removing any Composer fragments of Laraserve:
-Run <info>composer global remove Laracodes/Laraserve</info>
+Run <info>composer global remove laracodedeveloper/laraserve</info>
 and then <info>rm /usr/local/bin/Laraserve</info> to remove the Laraserve bin link if it still exists.
 Optional:
 - <info>brew list</info> will show any other Homebrew services installed, in case you want to make changes to those as well.
@@ -399,7 +399,7 @@ You may also run <comment>Laraserve parked</comment> to see a list of all sites 
 <fg=red>You may remove your user-specific Laraserve config files by running:</>  <comment>rm -rf ~/.config/laraserve</comment>
 
 <info>3. Remove Laraserve package</info>
-You can run <comment>composer global remove laracodes/laraserve</comment> to uninstall the Laraserve package.
+You can run <comment>composer global remove laracodedeveloper/laraserve</comment> to uninstall the Laraserve package.
 
 <info>4. Homebrew Services</info>
 <fg=red>You may remove the core services (php, nginx, dnsmasq) by running:</> <comment>brew uninstall --force php nginx dnsmasq</comment>

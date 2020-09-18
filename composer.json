@@ -1,7 +1,7 @@
 {
-    "name": "laracodes/laraserve",
+    "name": "laracodedeveloper/laraserve",
     "description": "A more enjoyable local development experience for Mac.",
-    "keywords": ["laravel", "laracodes", "webdeveloper"],
+    "keywords": ["laravel", "laracodes", "webdeveloper", "laracodedeveloper"],
     "license": "MIT",
     "authors": [
         {
