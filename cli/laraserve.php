@@ -32,10 +32,9 @@ if (is_dir(LARASERVE_LEGACY_HOME_PATH) && !is_dir(LARASERVE_HOME_PATH)) {
  */
 Container::setInstance(new Container);
 
-//$version = '2.11.0';
 $version = '1.0.0';
 
-$app = new Application('Laravel Laraserve', $version);
+$app = new Application('Laraserve', $version);
 
 /**
  * Prune missing directories and symbolic links on every command.
@@ -59,7 +58,7 @@ $app->command('install', function () {
     Nginx::restart();
     Laraserve::symlinkToUsersBin();
 
-    output(PHP_EOL.'<info>ValeLaraservetalled successfully!</info>');
+    output(PHP_EOL.'<info>Laraserve installed successfully!</info>');
 })->descriptions('Install the Laraserve services');
 
 /**
