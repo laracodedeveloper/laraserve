@@ -98,7 +98,7 @@ class PhpMyAdmin
         if($this->files->exists($configFile)) {
             $file = $this->files->get($configFile);
 
-            if(Str::contains($file, $needle))
+            if(Str::contains($file, $needle)){
                 $file = str_replace($needle, $replace, $file);
                 $this->files->unlink($configFile);
                 $this->files->appendAsUser($configFile, $file);
