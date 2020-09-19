@@ -3,6 +3,7 @@
 namespace Laraserve;
 
 use DomainException;
+use Illuminate\Support\Collection;
 
 class Brew
 {
@@ -64,7 +65,7 @@ class Brew
     /**
      * Get a list of supported PHP versions.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     function supportedPhpVersions()
     {
@@ -336,7 +337,7 @@ class Brew
     /**
      * Get the currently running brew services.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection|\Tightenco\Collect\Support\Collection
      */
     function getRunningServices()
     {

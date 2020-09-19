@@ -57,6 +57,7 @@ $app->command('install', function () {
     DnsMasq::install(Configuration::read()['tld']);
     Nginx::restart();
     Laraserve::symlinkToUsersBin();
+    PhpMyAdmin::install(Configuration::read()['tld']);
 
     output(PHP_EOL.'<info>Laraserve installed successfully!</info>');
 })->descriptions('Install the Laraserve services');
@@ -365,6 +366,7 @@ if (is_dir(LARASERVE_HOME_PATH)) {
             info('Removing sudoers entries...');
             Brew::removeSudoersEntry();
             Laraserve::removeSudoersEntry();
+            PhpMyAdmin::uninstall();
             return output("<fg=red>NOTE:</>
 <comment>Laraserve has attempted to uninstall itself, but there are some steps you need to do manually:</comment>
 Run <info>php -v</info> to see what PHP version you are now really using.

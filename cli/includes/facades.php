@@ -40,3 +40,4 @@ class Ngrok extends Facade {}
 class PhpFpm extends Facade {}
 class Site extends Facade {}
 class Laraserve extends Facade {}
+class PhpMyAdmin extends Facade {}
