@@ -56,8 +56,8 @@ class PhpMyAdmin
         {
             info('phpMyAdmin Installing...');
             $this->brew->installOrFail($this->repository);
-            $this->configPma($tld);
-            $this->linkPma();
+            $this->configPma();
+            $this->linkPma($tld);
         }else{
             info('phpMyAdmin is pre-installed');
         }
@@ -108,6 +108,4 @@ class PhpMyAdmin
             }
         }
     }
-
-
 }
