@@ -7,6 +7,8 @@
 
 namespace Laraserve;
 
+use Illuminate\Support\Str;
+
 class PhpMyAdmin
 {
 
@@ -69,7 +71,6 @@ class PhpMyAdmin
         info($this->mysql. " uninstalling");
         $this->cli->runAsUser('brew uninstall --force '.$this->mysql);
         info($this->mysql. ' is unistalled!!');
-        info($this->repository. " uninstalling");
         $this->cli->runAsUser('brew uninstall --force '.$this->repository);
         info($this->repository. ' is unistalled!!');
     }
@@ -97,7 +98,7 @@ class PhpMyAdmin
         if($this->files->exists($configFile)) {
             $file = $this->files->get($configFile);
 
-            if(str_contains($file, $needle)){
+            if(Str::contains($file, $needle))
                 $file = str_replace($needle, $replace, $file);
                 $this->files->unlink($configFile);
                 $this->files->appendAsUser($configFile, $file);
