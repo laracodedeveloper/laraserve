@@ -71,7 +71,7 @@ abstract class LaraserveDriver
         $drivers[] = 'NeosLaraserveDriver';
         $drivers[] = 'Magento2LaraserveDriver';
 
-        $drivers[] = 'BasicLaraseveDriver';
+        $drivers[] = 'BasicLaraserveDriver';
 
         foreach ($drivers as $driver) {
             $driver = new $driver;
